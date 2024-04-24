@@ -18,7 +18,11 @@ st.header('Please upload a Retina image')
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
 # load classifier
-model = load_model('./model/reg6.h5')
+try:
+    model = load_model('./model/reg6.h5')
+except Exception as e:
+    st.error("Error loading model: {}".format(str(e)))
+
 
 # load class names
 with open('./model/labels.txt', 'r') as f:
