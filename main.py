@@ -1,84 +1,43 @@
-import streamlit as st
-import tensorflow as tf
-import random
-from PIL import Image, ImageOps
+import cv2
 import numpy as np
+import streamlit as st
+from keras.models import load_model
 
-import warnings
-warnings.filterwarnings("ignore")
+# Function to preprocess the image
+def preprocess_image(image):
+    image = cv2.resize(image, (image_size, image_size))
+    normalized_image = image / 255.0
+    return normalized_image
 
-st.set_page_config(
-    page_title="Mango Leaf Disease Detection",
-    page_icon = ":mango:",
-    initial_sidebar_state = 'auto'
-)
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+# Function to predict the class of the image
+def predict_image(image):
+    processed_image = preprocess_image(image)
+    prediction = model.predict(np.expand_dims(processed_image, axis=0))
+    predicted_label = np.argmax(prediction)
+    class_names = ['Class 0', 'Class 1', 'Class 2', 'Class 3', 'Class 4']  # Modify according to your class names
+    predicted_class = class_names[predicted_label]
+    confidence = prediction[0][predicted_label]
+    return predicted_class, confidence
 
-def prediction_cls(prediction):
-    for key, clss in class_names.items():
-        if np.argmax(prediction)==clss:
-            return key
+# Load the model
+image_size = 224
+weights_location = './model/reg6_weights.h5'
+model_path = './model/reg6.h5'
 
-@st.cache(allow_output_mutation=True)
-def load_model():
-    model=tf.keras.models.load_model('./model/reg6.h5')
-    return model
-with st.spinner('Model is being loaded..'):
-    model=load_model()
+try:
+    model = load_model(model_path)
+    model.load_weights(weights_location)
+except Exception as e:
+    st.error("Error loading model: " + str(e))
 
+# Streamlit app
+st.title("Image Classification App")
 
+uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
-st.write("""
-         # Mango Disease Detection with Remedy Suggestion
-         """
-         )
-
-file = st.file_uploader("", type=["jpg", "png"])
-
-def import_and_predict(image_data, model):
-    size = (224, 224)    
-    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-    img = np.asarray(image)
-    img_reshape = img[np.newaxis,...]
-    prediction = model.predict(img_reshape)
-    return prediction
-
-if file is None:
-    st.text("Please upload an image file")
-else:
-    image = Image.open(file)
-    st.image(image, use_column_width=True)
-    predictions = import_and_predict(image, model)
-    x = random.randint(98, 99) + random.randint(0, 99) * 0.01
-    st.sidebar.error("Accuracy : " + str(x) + " %")
-
-    class_names = {0: 'NoDr', 1: 'Mild', 2: 'Moderate', 3: 'Severe', 4: 'ProlifeDR'}
-
-    predicted_class_index = np.argmax(predictions)
-    predicted_class_name = class_names[predicted_class_index]
-
-    string = "Detected Disease : " + predicted_class_name
-    st.sidebar.warning(string)
-
-    if predicted_class_name == 'NoDr':
-        st.balloons()
-        st.sidebar.success(string)
-    else:
-        st.markdown("## Remedy")
-
-        # Add remedy suggestions based on the predicted class
-        if predicted_class_name == 'Mild':
-            st.info("Remedy suggestion for Anthracnose")
-        elif predicted_class_name == 'Moderate':
-            st.info("Remedy suggestion for Bacterial Canker")
-        elif predicted_class_name == 'Severe':
-            st.info("Remedy suggestion for Cutting Weevil")
-        elif predicted_class_name == 'ProlifeDR':
-            st.info("Remedy suggestion for Die Back")
-      
+if uploaded_file is not None:
+    image = cv2.imdecode(np.fromstring(uploaded_file.read(), np.uint8), 1)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
+    predicted_class, confidence = predict_image(image)
+    st.write("Predicted Class:", predicted_class)
+    st.write("Confidence:", confidence)
