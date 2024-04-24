@@ -1,63 +1,38 @@
 import streamlit as st
+from keras.models import load_model
 from PIL import Image
 import numpy as np
-from keras.models import load_model
-import os
 
-st.title("Image Classification with Streamlit")
+from util import classify, set_background
 
-# Function to preprocess the image
-def preprocess_image(image):
-    image_size = 224
 
-    # Resize the image to match the input shape of the model
-    resized_image = image.resize((image_size, image_size))
+set_background('./bgs/bg5.png')
 
-    # Convert the image to array
-    image_array = np.array(resized_image)
+# set title
+st.title('Pneumonia classification')
 
-    # Normalize pixel values to range [0, 1]
-    image_array = image_array / 255.0
+# set header
+st.header('Please upload a chest X-ray image')
 
-    return image_array
+# upload file
+file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-# Function to make predictions
-def predict_image(image, model_path):
-    # Preprocess the image
-    processed_image = preprocess_image(image)
+# load classifier
+model = load_model('./model/reg6.h5')
 
-    # Load your model
-    regnety006_custom_model = load_model(model_path)
+# load class names
+with open('./model/labels.txt', 'r') as f:
+    class_names = [a[:-1].split(' ')[1] for a in f.readlines()]
+    f.close()
 
-    # Make prediction
-    prediction = regnety006_custom_model.predict(np.expand_dims(processed_image, axis=0))
+# display image
+if file is not None:
+    image = Image.open(file).convert('RGB')
+    st.image(image, use_column_width=True)
 
-    return prediction
+    # classify image
+    class_name, conf_score = classify(image, model, class_names)
 
-# Upload image
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-
-# Construct absolute path to the model file
-script_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(script_dir, "model", "reg6.h5")
-
-if uploaded_file is not None:
-    # Read the uploaded image as PIL Image
-    pil_image = Image.open(uploaded_file)
-
-    # Display the uploaded image
-    st.image(pil_image, caption='Uploaded Image', use_column_width=True)
-
-    # Make prediction
-    prediction = predict_image(pil_image, model_path)
-
-    # Display the predicted probabilities for each class
-    class_names = ['Class 0', 'Class 1', 'Class 2', 'Class 3', 'Class 4']  # Modify according to your class names
-    st.write("Predicted Probabilities:")
-    for i in range(len(class_names)):
-        st.write(f"{class_names[i]}: {prediction[0][i]*100:.2f}%")
-
-    # Assuming prediction is an array of probabilities for each class,
-    # you can find the predicted label using argmax
-    predicted_label = np.argmax(prediction)
-    st.write("Predicted Label:", predicted_label)
+    # write classification
+    st.write("## {}".format(class_name))
+    st.write("### score: {}%".format(int(conf_score * 1000) / 10))
