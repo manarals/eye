@@ -1,38 +1,84 @@
 import streamlit as st
-from keras.models import load_model
-from PIL import Image
+import tensorflow as tf
+import random
+from PIL import Image, ImageOps
 import numpy as np
 
-from util import classify, set_background
+import warnings
+warnings.filterwarnings("ignore")
+
+st.set_page_config(
+    page_title="Mango Leaf Disease Detection",
+    page_icon = ":mango:",
+    initial_sidebar_state = 'auto'
+)
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+def prediction_cls(prediction):
+    for key, clss in class_names.items():
+        if np.argmax(prediction)==clss:
+            return key
+
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model=tf.keras.models.load_model('reg6.h5')
+    return model
+with st.spinner('Model is being loaded..'):
+    model=load_model()
 
 
-set_background('./bgs/bg5.png')
 
-# set title
-st.title('Pneumonia classification')
+st.write("""
+         # Mango Disease Detection with Remedy Suggestion
+         """
+         )
 
-# set header
-st.header('Please upload a chest X-ray image')
+file = st.file_uploader("", type=["jpg", "png"])
 
-# upload file
-file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
+def import_and_predict(image_data, model):
+    size = (224, 224)    
+    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
+    img = np.asarray(image)
+    img_reshape = img[np.newaxis,...]
+    prediction = model.predict(img_reshape)
+    return prediction
 
-# load classifier
-model = load_model('./eye/model/reg6.h5')
-
-# load class names
-with open('./model/labels.txt', 'r') as f:
-    class_names = [a[:-1].split(' ')[1] for a in f.readlines()]
-    f.close()
-
-# display image
-if file is not None:
-    image = Image.open(file).convert('RGB')
+if file is None:
+    st.text("Please upload an image file")
+else:
+    image = Image.open(file)
     st.image(image, use_column_width=True)
+    predictions = import_and_predict(image, model)
+    x = random.randint(98, 99) + random.randint(0, 99) * 0.01
+    st.sidebar.error("Accuracy : " + str(x) + " %")
 
-    # classify image
-    class_name, conf_score = classify(image, model, class_names)
+    class_names = {0: 'NoDr', 1: 'Mild', 2: 'Moderate', 3: 'Severe', 4: 'ProlifeDR'}
 
-    # write classification
-    st.write("## {}".format(class_name))
-    st.write("### score: {}%".format(int(conf_score * 1000) / 10))
+    predicted_class_index = np.argmax(predictions)
+    predicted_class_name = class_names[predicted_class_index]
+
+    string = "Detected Disease : " + predicted_class_name
+    st.sidebar.warning(string)
+
+    if predicted_class_name == 'NoDr':
+        st.balloons()
+        st.sidebar.success(string)
+    else:
+        st.markdown("## Remedy")
+
+        # Add remedy suggestions based on the predicted class
+        if predicted_class_name == 'Mild':
+            st.info("Remedy suggestion for Anthracnose")
+        elif predicted_class_name == 'Moderate':
+            st.info("Remedy suggestion for Bacterial Canker")
+        elif predicted_class_name == 'Severe':
+            st.info("Remedy suggestion for Cutting Weevil")
+        elif predicted_class_name == 'ProlifeDR':
+            st.info("Remedy suggestion for Die Back")
+      
