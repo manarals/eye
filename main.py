@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 from keras.models import load_model
+import os
 
 st.title("Image Classification with Streamlit")
 
@@ -21,15 +22,12 @@ def preprocess_image(image):
     return image_array
 
 # Function to make predictions
-def predict_image(image):
+def predict_image(image, model_path):
     # Preprocess the image
     processed_image = preprocess_image(image)
 
     # Load your model
-    model_path = 'reg6.hdf5'
-    weights_location = 'reg6_weights.hdf5'
     regnety006_custom_model = load_model(model_path)
-    regnety006_custom_model.load_weights(weights_location)
 
     # Make prediction
     prediction = regnety006_custom_model.predict(np.expand_dims(processed_image, axis=0))
@@ -39,6 +37,10 @@ def predict_image(image):
 # Upload image
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
+# Construct absolute path to the model file
+script_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(script_dir, "model", "reg6.h5")
+
 if uploaded_file is not None:
     # Read the uploaded image as PIL Image
     pil_image = Image.open(uploaded_file)
@@ -47,7 +49,7 @@ if uploaded_file is not None:
     st.image(pil_image, caption='Uploaded Image', use_column_width=True)
 
     # Make prediction
-    prediction = predict_image(pil_image)
+    prediction = predict_image(pil_image, model_path)
 
     # Display the predicted probabilities for each class
     class_names = ['Class 0', 'Class 1', 'Class 2', 'Class 3', 'Class 4']  # Modify according to your class names
