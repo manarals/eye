@@ -2,44 +2,37 @@ import streamlit as st
 from keras.models import load_model
 from PIL import Image
 import numpy as np
-import os
 
 from util import classify, set_background
 
-# Get absolute path to the directory of this script
-current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Set absolute path for model and background image
-model_path = os.path.join(current_dir, 'model', 'reg6.h5')
-background_image_path = os.path.join(current_dir, 'bgs', 'bg5.png')
+set_background('./bgs/bg5.png')
 
-# Set background
-set_background(background_image_path)
+# set title
+st.title('Pneumonia classification')
 
-# Set title
-st.title('Diabetic Retinopathy Detection')
+# set header
+st.header('Please upload a chest X-ray image')
 
-# Set header
-st.header('Please upload a Retina image')
-
-# Upload file
+# upload file
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-# Load classifier
-model = load_model(model_path)
+# load classifier
+model = load_model('./model/pneumonia_classifier.h5')
 
-# Load class names
-with open(os.path.join(current_dir, 'model', 'labels.txt'), 'r') as f:
+# load class names
+with open('./model/labels.txt', 'r') as f:
     class_names = [a[:-1].split(' ')[1] for a in f.readlines()]
+    f.close()
 
-# Display image and classify
+# display image
 if file is not None:
     image = Image.open(file).convert('RGB')
     st.image(image, use_column_width=True)
 
-    # Classify image
+    # classify image
     class_name, conf_score = classify(image, model, class_names)
 
-    # Write classification
+    # write classification
     st.write("## {}".format(class_name))
     st.write("### score: {}%".format(int(conf_score * 1000) / 10))
