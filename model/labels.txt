@@ -1,2 +1,6 @@
-0 PNEUMONIA
-1 NORMAL
+0 NoDR
+1 Mild
+2 Moderate
+3 Severe
+4 ProliferativeDR
+
