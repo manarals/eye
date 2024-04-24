@@ -19,7 +19,7 @@ file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
 # load classifier
 try:
-    model = load_model('./model/reg6.h5')
+    model = load_model('../model/reg6.h5')
 except Exception as e:
     st.error("Error loading model: {}".format(str(e)))
 
