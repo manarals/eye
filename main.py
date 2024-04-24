@@ -26,8 +26,8 @@ def predict_image(image):
     processed_image = preprocess_image(image)
 
     # Load your model
-    model_path = 'reg6.h5'
-    weights_location = 'reg6_weights.h5'
+    model_path = 'reg6.hdf5'
+    weights_location = 'reg6_weights.hdf5'
     regnety006_custom_model = load_model(model_path)
     regnety006_custom_model.load_weights(weights_location)
 
