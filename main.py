@@ -27,6 +27,8 @@ file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
 # Load classifier
 model = load_model(model_path)
+print("Current directory:", current_dir)
+print("Model path:", model_path)
 
 # Load class names
 with open(os.path.join(current_dir, 'model', 'labels.txt'), 'r') as f:
