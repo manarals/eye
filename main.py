@@ -1,43 +1,38 @@
-import cv2
-import numpy as np
 import streamlit as st
 from keras.models import load_model
+from PIL import Image
+import numpy as np
 
-# Function to preprocess the image
-def preprocess_image(image):
-    image = cv2.resize(image, (image_size, image_size))
-    normalized_image = image / 255.0
-    return normalized_image
+from util import classify, set_background
 
-# Function to predict the class of the image
-def predict_image(image):
-    processed_image = preprocess_image(image)
-    prediction = model.predict(np.expand_dims(processed_image, axis=0))
-    predicted_label = np.argmax(prediction)
-    class_names = ['Class 0', 'Class 1', 'Class 2', 'Class 3', 'Class 4']  # Modify according to your class names
-    predicted_class = class_names[predicted_label]
-    confidence = prediction[0][predicted_label]
-    return predicted_class, confidence
 
-# Load the model
-image_size = 224
-weights_location = './model/reg6_weights.h5'
-model_path = './model/reg6.h5'
+set_background('./bgs/bg5.png')
 
-try:
-    model = load_model(model_path)
-    model.load_weights(weights_location)
-except Exception as e:
-    st.error("Error loading model: " + str(e))
+# set title
+st.title('Pneumonia classification')
 
-# Streamlit app
-st.title("Image Classification App")
+# set header
+st.header('Please upload a chest X-ray image')
 
-uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+# upload file
+file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-if uploaded_file is not None:
-    image = cv2.imdecode(np.fromstring(uploaded_file.read(), np.uint8), 1)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
-    predicted_class, confidence = predict_image(image)
-    st.write("Predicted Class:", predicted_class)
-    st.write("Confidence:", confidence)
+# load classifier
+model = load_model('./model/reg6.h5')
+
+# load class names
+with open('./model/labels.txt', 'r') as f:
+    class_names = [a[:-1].split(' ')[1] for a in f.readlines()]
+    f.close()
+
+# display image
+if file is not None:
+    image = Image.open(file).convert('RGB')
+    st.image(image, use_column_width=True)
+
+    # classify image
+    class_name, conf_score = classify(image, model, class_names)
+
+    # write classification
+    st.write("## {}".format(class_name))
+    st.write("### score: {}%".format(int(conf_score * 1000) / 10))
