@@ -1,5 +1,10 @@
 import streamlit as st
-
+st.set_page_config(
+    page_title="DR classification",
+    page_icon=":eyeglasses:",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 # Define the theme
 def my_theme():
     primaryColor = "#24475B"
