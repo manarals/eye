@@ -53,7 +53,7 @@ import base64
 
 from util import set_background, classify
 
-set_custom_css()
+
 # set title
 st.title('DR classification')
 
