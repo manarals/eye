@@ -7,7 +7,7 @@ st.set_page_config(
 )
 # Define the theme
 def my_theme():
-    primaryColor = "#24475B"
+    primaryColor = "#3A3A3A"
     backgroundColor = "#F3F3F3"
     secondaryBackgroundColor = "#3A3A3A"
     textColor = "#24475B"
@@ -97,7 +97,7 @@ st.markdown("<h1 style='color: #24475B;'>Diabatic Retinopathy classification</h1
 
 
 # set header
-st.markdown("<h2 style='color: #24475B;'>Please upload a Retina image</h2>", unsafe_allow_html=True)
+st.markdown("<h3 style='color: #24475B;'>Please upload a Retina image</h2>", unsafe_allow_html=True)
 
 # upload file
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
@@ -126,8 +126,8 @@ if file is not None:
     class_name, conf_score = classify(image, model, class_names)
 
     # write classification
-    st.write("## {}".format(class_name))
-    st.write("### score: {}%".format(int(conf_score * 1000) / 10))
+st.markdown("<h2 style='color: #24475B;'>{}</h2>".format(class_name), unsafe_allow_html=True)
+st.markdown("<h3 style='color: #24475B;'>score: {}%</h3>".format(int(conf_score * 1000) / 10), unsafe_allow_html=True)
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
