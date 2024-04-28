@@ -56,7 +56,7 @@ if file is not None:
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
-        st.sidebar.heading("Diabetic retinopathy")
+        st.sidebar.title("Diabetic retinopathy")
         st.sidebar.write("A progressive eye disease that can lead to vision loss. It occurs when diabetes damages the blood vessels of the retina, the light-sensitive tissue at the back of the eye.")
         st.sidebar.image("./DR.jpg", use_column_width=True)
         st.sidebar.success("Detected class : " + class_name)
