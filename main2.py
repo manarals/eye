@@ -1,7 +1,7 @@
 import streamlit as st
 st.set_page_config(
     page_title="DR classification",
-    page_icon=":eyeglasses:",
+    page_icon=":eye:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -17,45 +17,56 @@ def my_theme():
     st.markdown(
         f"""
         <style>
-            /* Streamlit App Main Style */
-            body {{
-                color: {textColor} !important;
-                background-color: {backgroundColor};
-                font-family: {font} !important;
-            }}
-            .stApp {{
-                background-color: {backgroundColor};
-            }}
+        /* Streamlit App Main Style */
+        body {{
+            color: {textColor} !important;
+            background-color: {backgroundColor};
+            font-family: {font} !important;
+        }}
+        .stApp {{
+            background-color: {backgroundColor};
+        }}
 
-            /* Streamlit Widgets Style */
-            .stTextInput > div > div > input {{
-                color: {textColor} !important;
-                background-color: {secondaryBackgroundColor};
-                border-color: {primaryColor};
-            }}
-            .stTextInput > div > label {{
-                color: {textColor} !important;
-            }}
+        /* Streamlit Widgets Style */
+        .stTextInput > div > div > input {{
+            color: {textColor} !important;
+            background-color: {secondaryBackgroundColor};
+            border-color: {primaryColor};
+        }}
+        .stTextInput > div > label {{
+            color: {textColor} !important;
+        }}
 
-            .stButton > button {{
-                color: {textColor} !important;
-                background-color: {primaryColor};
-            }}
-            .stButton > button:hover {{
-                background-color: {secondaryBackgroundColor};
-            }}
-            .stButton > button:active {{
-                background-color: {secondaryBackgroundColor};
-                color: {primaryColor};
-            }}
+        .stButton > button {{
+            color: {textColor} !important;
+            background-color: {primaryColor};
+        }}
+        .stButton > button:hover {{
+            background-color: {secondaryBackgroundColor};
+        }}
+        .stButton > button:active {{
+            background-color: {secondaryBackgroundColor};
+            color: {primaryColor};
+        }}
 
-            /* Streamlit Markdown Style */
-            .stMarkdown {{
-                color: {textColor} !important;
-            }}
-            .stMarkdown a {{
-                color: {primaryColor} !important;
-            }}
+        /* Streamlit Markdown Style */
+        .stMarkdown {{
+            color: {textColor} !important;
+        }}
+        .stMarkdown a {{
+            color: {primaryColor} !important;
+        }}
+
+        /* Custom Title Style */
+        .stTitle {{
+            color: white !important;
+        }}
+
+        /* Custom Text and Header Style */
+        .stText, .stHeader {{
+            color: white !important;
+        }}
+
 
         </style>
         """,
