@@ -28,7 +28,7 @@ st.markdown("<h3 style='color: #24475B;'>Please upload a Retina image</h2>", uns
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
 # load classifier
-weights = load_weights('./model/reg6_weights.h5')
+#weights = load_weights('./model/reg6_weights.h5')
 model = load_model('./model/reg6.h5')
 
 # load class names
@@ -49,7 +49,7 @@ if file is not None:
     st.image(image, use_column_width=True)
 
     # classify image
-    class_name, conf_score = classify(image, model,weights, class_names)
+    class_name, conf_score = classify(image, model, class_names)
 
         # write classification
     #st.markdown("<h2 style='color: #24475B;'>{}</h2>".format(class_name), unsafe_allow_html=True)
