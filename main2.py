@@ -1,24 +1,26 @@
 import streamlit as st
 from keras.models import load_model
 from PIL import Image
+import numpy as np
+import base64
 
-# Import util functions from local file
 from util import set_background, classify
 
-# Load the theme from config.toml
-st.set_theme('./config.toml')
+set_background('./bgs/bg5.png')
 
-# Set title and header
+# set title
 st.title('DR classification')
+
+# set header
 st.header('Please upload a Retina image')
 
-# Upload file
+# upload file
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-# Load classifier
+# load classifier
 model = load_model('./model/reg6.h5')
 
-# Load class names
+# load class names
 class_names = ['NoDR', 'Mild', 'Moderate', 'Severe', 'ProliferativeDR']
 
 # Define class meanings
@@ -30,15 +32,15 @@ class_meanings = {
     'ProliferativeDR': "Proliferative Diabetic Retinopathy (PDR) - Neovascularization present, which can lead to vision loss"
 }
 
-# Display image and classification result
+# display image
 if file is not None:
     image = Image.open(file).convert('RGB')
     st.image(image, use_column_width=True)
 
-    # Classify image
+    # classify image
     class_name, conf_score = classify(image, model, class_names)
 
-    # Write classification
+    # write classification
     st.write("## {}".format(class_name))
     st.write("### score: {}%".format(int(conf_score * 1000) / 10))
 
