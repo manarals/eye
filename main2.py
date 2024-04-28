@@ -1,13 +1,104 @@
 import streamlit as st
 
-# Set the theme colors and font
-st.beta_set_page_config(
-    primaryColor="#24475B",
-    backgroundColor="#3A3A3A",
-    secondaryBackgroundColor="#F3F3F3",
-    textColor="#FFFFFF",
-    font="sans-serif"
-)
+# Define CSS styles for the theme
+def set_custom_style():
+    st.markdown(
+        f"""
+        <style>
+            body {{
+                color: #FFFFFF;
+                background-color: #3A3A3A;
+            }}
+            .st-bk {{
+                background-color: #F3F3F3;
+            }}
+            .st-br {{
+                border-radius: 10px;
+            }}
+            .st-ch {{
+                border-radius: 10px;
+            }}
+            .st-cp {{
+                border-radius: 10px;
+            }}
+            .st-ct {{
+                border-radius: 10px;
+            }}
+            .st-cv {{
+                border-radius: 10px;
+            }}
+            .st-dh {{
+                border-radius: 10px;
+            }}
+            .st-ej {{
+                border-radius: 10px;
+            }}
+            .st-ex {{
+                border-radius: 10px;
+            }}
+            .st-fx {{
+                border-radius: 10px;
+            }}
+            .st-fy {{
+                border-radius: 10px;
+            }}
+            .st-gg {{
+                border-radius: 10px;
+            }}
+            .st-hc {{
+                border-radius: 10px;
+            }}
+            .st-jo {{
+                border-radius: 10px;
+            }}
+            .st-k {{
+                border-radius: 10px;
+            }}
+            .st-kf {{
+                border-radius: 10px;
+            }}
+            .st-l {{
+                border-radius: 10px;
+            }}
+            .st-m {{
+                border-radius: 10px;
+            }}
+            .st-n {{
+                border-radius: 10px;
+            }}
+            .st-o {{
+                border-radius: 10px;
+            }}
+            .st-q {{
+                border-radius: 10px;
+            }}
+            .st-s {{
+                border-radius: 10px;
+            }}
+            .st-t {{
+                border-radius: 10px;
+            }}
+            .st-u {{
+                border-radius: 10px;
+            }}
+            .st-v {{
+                border-radius: 10px;
+            }}
+            .st-w {{
+                border-radius: 10px;
+            }}
+            .st-y {{
+                border-radius: 10px;
+            }}
+            .st-z {{
+                border-radius: 10px;
+            }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+set_custom_style()
 
 # Now you can continue with the rest of your code
 from keras.models import load_model
