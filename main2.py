@@ -93,10 +93,11 @@ from util import set_background, classify
 #set_background('./bgs/bg5.png')
 
 # set title
-st.title('DR classification')
+st.markdown("<h1 style='color: white;'>Diabatic Retinopathy classification</h1>", unsafe_allow_html=True)
+
 
 # set header
-st.header('Please upload a Retina image')
+st.markdown("<h2 style='color: white;'>Please upload a Retina image</h2>", unsafe_allow_html=True)
 
 # upload file
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
