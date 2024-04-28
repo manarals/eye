@@ -10,8 +10,8 @@ st.set_page_config(
 
 def my_theme():
     primaryColor = "#24475B"
-    backgroundColor = "#3A3A3A"
-    secondaryBackgroundColor = "#F3F3F3"
+    backgroundColor = "#F3F3F3"
+    secondaryBackgroundColor = "#3A3A3A"
     textColor = "#FFFFFF"
     font = "sans-serif"
 
