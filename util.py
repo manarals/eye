@@ -49,20 +49,19 @@ def classify(image, model, class_names):
     # Convert image to numpy array
     image_array = np.asarray(image)
 
-    # Normalize image
-    normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
-
-    # Set model input
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-    data[0] = normalized_image_array
-
-    # Load model weights
-    #model.load_weights(weights)
+    # Expand dimensions to match the model input shape
+    image_array = np.expand_dims(image_array, axis=0)
 
     # Make prediction
-    prediction = model.predict(data)
-    index = np.argmax(prediction)
-    class_name = class_names[index]
-    confidence_score = prediction[0][index]
+    predictions = model.predict(image_array)[0]
 
-    return class_name, confidence_score
+    # Get the index of the predicted class
+    predicted_class_index = np.argmax(predictions)
+
+    # Get the predicted class name
+    predicted_class_name = class_names[predicted_class_index]
+
+    # Get the confidence score for the predicted class
+    confidence_score = predictions[predicted_class_index]
+
+    return predicted_class_name, confidence_score
