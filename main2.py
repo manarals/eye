@@ -1,4 +1,15 @@
 import streamlit as st
+
+# Set the theme colors and font
+st.beta_set_page_config(
+    primaryColor="#24475B",
+    backgroundColor="#3A3A3A",
+    secondaryBackgroundColor="#F3F3F3",
+    textColor="#FFFFFF",
+    font="sans-serif"
+)
+
+# Now you can continue with the rest of your code
 from keras.models import load_model
 from PIL import Image
 import numpy as np
