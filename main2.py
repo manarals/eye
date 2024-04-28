@@ -32,7 +32,16 @@ file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 model = load_model('./model/reg6.h5')
 
 # load class names
-class_names = ['NoDR', 'Mild', 'Moderate', 'Severe', 'ProliferativeDR']
+#class_names = ['NoDR', 'Mild', 'Moderate', 'Severe', 'ProliferativeDR']
+class_names = []
+with open('./model/labels.txt', 'r') as f:
+    for line in f:
+        parts = line.strip().split(' ')
+        if len(parts) >= 2:  # Check if line has at least two parts
+            class_names.append(parts[1])
+        else:
+            # Handle improperly formatted line (optional)
+            print(f"Ignoring improperly formatted line: {line}")
 
 # Define class meanings
 class_meanings = {
