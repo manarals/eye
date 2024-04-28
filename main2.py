@@ -8,9 +8,9 @@ st.set_page_config(
 # Define the theme
 def my_theme():
     primaryColor = "#24475B"
-    backgroundColor = "#3A3A3A"
-    secondaryBackgroundColor = "#F3F3F3"
-    textColor = "#FFFFFF"
+    backgroundColor = "#F3F3F3"
+    secondaryBackgroundColor = "#3A3A3A"
+    textColor = "#24475B"
     font = "sans-serif"
 
     # Apply the theme
@@ -93,11 +93,11 @@ from util import set_background, classify
 #set_background('./bgs/bg5.png')
 
 # set title
-st.markdown("<h1 style='color: white;'>Diabatic Retinopathy classification</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color: #24475B;'>Diabatic Retinopathy classification</h1>", unsafe_allow_html=True)
 
 
 # set header
-st.markdown("<h2 style='color: white;'>Please upload a Retina image</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='color: #24475B;'>Please upload a Retina image</h2>", unsafe_allow_html=True)
 
 # upload file
 file = st.file_uploader('', type=['jpeg', 'jpg', 'png'])
