@@ -5,53 +5,32 @@ def my_theme():
     primaryColor = "#24475B"
     backgroundColor = "#3A3A3A"
     secondaryBackgroundColor = "#F3F3F3"
-    textColor = "#FFFFFF"
+    textColor = "#FFFFFF"  # White color for text
     font = "sans-serif"
 
     # Apply the theme
     st.markdown(
         f"""
         <style>
-            /* Streamlit App Main Style */
             body {{
-                color: {textColor} !important;
                 background-color: {backgroundColor};
-                font-family: {font} !important;
+                color: {textColor};
+                font-family: {font};
             }}
-            .stApp {{
-                background-color: {backgroundColor};
-            }}
-
-            /* Streamlit Widgets Style */
-            .stTextInput > div > div > input {{
-                color: {textColor} !important;
-                background-color: {secondaryBackgroundColor};
-                border-color: {primaryColor};
-            }}
-            .stTextInput > div > label {{
-                color: {textColor} !important;
-            }}
-
-            .stButton > button {{
-                color: {textColor} !important;
+            .primary {{
                 background-color: {primaryColor};
+                color: {textColor};
             }}
-            .stButton > button:hover {{
+            .secondary-bg {{
                 background-color: {secondaryBackgroundColor};
+                color: {textColor};  /* White color for header and title */
             }}
-            .stButton > button:active {{
-                background-color: {secondaryBackgroundColor};
-                color: {primaryColor};
+            .sidebar-content {{
+                color: {textColor};  /* White color for sidebar content */
             }}
-
-            /* Streamlit Markdown Style */
-            .stMarkdown {{
-                color: {textColor} !important;
+            .stTextInput > div > div > input {{
+                color: {textColor};  /* White color for text input */
             }}
-            .stMarkdown a {{
-                color: {primaryColor} !important;
-            }}
-
         </style>
         """,
         unsafe_allow_html=True
@@ -59,13 +38,6 @@ def my_theme():
 
 # Apply the theme
 my_theme()
-import streamlit as st
-
-# Set font color to red
-st.markdown('<p style="color: white;">This is red text</p>', unsafe_allow_html=True)
-
-# Your Streamlit app code goes here...
-
 
 # Your Streamlit app code goes here...
 
