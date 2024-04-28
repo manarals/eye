@@ -69,6 +69,6 @@ def classify(image, model, class_names):
     confidence_score = predictions[predicted_class_index]
 
     # Create a dictionary of predicted probabilities
-    predicted_probabilities = {class_names[i]: float(predictions[i]) for i in range(len(class_names))}
+    predicted_probabilities = {class_names[i]: f"{predictions[i]*100:.2f}%" for i in range(len(class_names))}
 
     return predicted_class_name, confidence_score, predicted_probabilities
