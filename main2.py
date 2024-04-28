@@ -1,17 +1,10 @@
 import streamlit as st
 
-# Set the theme colors and font using Streamlit's set_page_config
-st.set_page_config(
-    page_title="DR classification",
-    page_icon=":eye:",
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
-
+# Define the theme
 def my_theme():
     primaryColor = "#24475B"
-    backgroundColor = "#F3F3F3"
-    secondaryBackgroundColor = "#3A3A3A"
+    backgroundColor = "#3A3A3A"
+    secondaryBackgroundColor = "#F3F3F3"
     textColor = "#FFFFFF"
     font = "sans-serif"
 
@@ -21,9 +14,9 @@ def my_theme():
         <style>
             /* Streamlit App Main Style */
             body {{
-                color: {textColor};
+                color: {textColor} !important;
                 background-color: {backgroundColor};
-                font-family: {font};
+                font-family: {font} !important;
             }}
             .stApp {{
                 background-color: {backgroundColor};
@@ -31,16 +24,16 @@ def my_theme():
 
             /* Streamlit Widgets Style */
             .stTextInput > div > div > input {{
-                color: {textColor};
+                color: {textColor} !important;
                 background-color: {secondaryBackgroundColor};
                 border-color: {primaryColor};
             }}
             .stTextInput > div > label {{
-                color: {textColor};
+                color: {textColor} !important;
             }}
 
             .stButton > button {{
-                color: {textColor};
+                color: {textColor} !important;
                 background-color: {primaryColor};
             }}
             .stButton > button:hover {{
@@ -53,10 +46,10 @@ def my_theme():
 
             /* Streamlit Markdown Style */
             .stMarkdown {{
-                color: {textColor};
+                color: {textColor} !important;
             }}
             .stMarkdown a {{
-                color: {primaryColor};
+                color: {primaryColor} !important;
             }}
 
         </style>
@@ -66,6 +59,9 @@ def my_theme():
 
 # Apply the theme
 my_theme()
+
+# Your Streamlit app code goes here...
+
 
 # Now you can continue with the rest of your code
 from keras.models import load_model
