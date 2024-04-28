@@ -29,7 +29,7 @@ def set_background(image_file):
     st.markdown(style, unsafe_allow_html=True)
 
 
-def classify(image, model, class_names):
+def classify(image, model, weights, class_names):
     """
     This function takes an image, a model, and a list of class names and returns the predicted class and confidence
     score of the image.
@@ -37,28 +37,31 @@ def classify(image, model, class_names):
     Parameters:
         image (PIL.Image.Image): An image to be classified.
         model (tensorflow.keras.Model): A trained machine learning model for image classification.
+        weights (str): Path to the weights file.
         class_names (list): A list of class names corresponding to the classes that the model can predict.
 
     Returns:
         A tuple of the predicted class name and the confidence score for that prediction.
     """
-    # convert image to (224, 224)
+    # Convert image to (224, 224)
     image = ImageOps.fit(image, (224, 224), Image.Resampling.LANCZOS)
 
-    # convert image to numpy array
+    # Convert image to numpy array
     image_array = np.asarray(image)
 
-    # normalize image
+    # Normalize image
     normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
 
-    # set model input
+    # Set model input
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     data[0] = normalized_image_array
 
-    # make prediction
+    # Load model weights
+    model.load_weights(weights)
+
+    # Make prediction
     prediction = model.predict(data)
-    # index = np.argmax(prediction)
-    index = 0 if prediction[0][0] > 0.95 else 1
+    index = np.argmax(prediction)
     class_name = class_names[index]
     confidence_score = prediction[0][index]
 
