@@ -3,35 +3,47 @@ import streamlit as st
 # Set the theme colors and font using Streamlit's set_page_config
 st.set_page_config(
     page_title="DR classification",
-    page_icon=":eyeglasses:",
-    layout="wide",
+    page_icon=":eye:",
+    layout="centered",
     initial_sidebar_state="expanded"
 )
+import streamlit as st
 
-# Define CSS styles for the theme
-def set_custom_css():
+# Define the theme
+def my_theme():
+    primaryColor = "#24475B"
+    backgroundColor = "#3A3A3A"
+    secondaryBackgroundColor = "#F3F3F3"
+    textColor = "#FFFFFF"
+    font = "sans-serif"
+
+    # Apply the theme
     st.markdown(
         f"""
         <style>
             body {{
-                color: #FFFFFF !important;
-                background-color: transparent !important;
+                background-color: {backgroundColor};
+                color: {textColor};
+                font-family: {font};
             }}
-            .st-cv {{
-                background-color: transparent !important;
+            .primary {{
+                background-color: {primaryColor};
+                color: {textColor};
             }}
-            .st-bb {{
-                font-family: sans-serif !important;
-            }}
-            .st-cp, .st-cc, .st-eq, .st-ct, .st-es, .st-hc, .st-fq, .st-jo, .st-jq, .st-jr, .st-dn {{
-                border-radius: 10px;
+            .secondary-bg {{
+                background-color: {secondaryBackgroundColor};
+                color: {backgroundColor};
             }}
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
 
-set_custom_css()
+# Apply the theme
+my_theme()
+
+# Your Streamlit app code goes here...
+
 
 # Now you can continue with the rest of your code
 from keras.models import load_model
@@ -41,8 +53,7 @@ import base64
 
 from util import set_background, classify
 
-set_background('./bgs/bg5.png')
-
+set_custom_css()
 # set title
 st.title('DR classification')
 
