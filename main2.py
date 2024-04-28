@@ -73,9 +73,9 @@ if file is not None:
         st.sidebar.write("A progressive eye disease that can lead to vision loss. It occurs when diabetes damages the blood vessels of the retina, the light-sensitive tissue at the back of the eye.")
         st.sidebar.image("./DR2.png", use_column_width=True)
         st.sidebar.success("Detected class : " + class_name)
-        st.sidebar.warning("Accuracy: {}%".format(int(conf_score * 1000) / 10))
+        st.sidebar.error("Accuracy: {}%".format(int(conf_score * 1000) / 10))
         st.sidebar.info(class_meanings[class_name])
-        st.sidebar.error("Predicted Probabilities:" + predicted_probabilities)
+        st.sidebar.warning("Predicted Probabilities:\n" + predicted_probabilities)
 
     else:
         st.sidebar.warning("Unknown Disease Detected")
