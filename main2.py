@@ -2,8 +2,9 @@ import streamlit as st
 from keras.models import load_model
 from PIL import Image
 import numpy as np
+import base64
 
-from util import classify, set_background
+from util import set_background, classify
 
 set_background('./bgs/bg5.png')
 
@@ -37,16 +38,11 @@ if file is not None:
     st.image(image, use_column_width=True)
 
     # classify image
-    class_name, conf_scores = classify(image, model, class_names)
+    class_name, conf_score = classify(image, model, class_names)
 
     # write classification
     st.write("## {}".format(class_name))
-    
-    # Check if the class_name exists in the conf_scores dictionary
-    if class_name in conf_scores:
-        st.write("### score: {}%".format(int(conf_scores[class_name] * 1000) / 10))
-    else:
-        st.write("### score: Not Available")
+    st.write("### score: {}%".format(int(conf_score * 1000) / 10))
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
