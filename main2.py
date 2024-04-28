@@ -72,7 +72,7 @@ if file is not None:
         st.sidebar.success("Detected class : " + class_name)
         st.sidebar.warning("Accuracy: {}%".format(int(conf_score * 1000) / 10))
         st.sidebar.info(class_meanings[class_name])
-        st.sidebar.error(predicted_probabilities)
+        st.sidebar.error("Predicted Probabilities:" + predicted_probabilities)
 
     else:
         st.sidebar.warning("Unknown Disease Detected")
