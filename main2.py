@@ -63,6 +63,9 @@ if file is not None:
         # write classification
     #st.markdown("<h2 style='color: #24475B;'>{}</h2>".format(class_name), unsafe_allow_html=True)
     #st.markdown("<h3 style='color: #24475B;'>score: {}%</h3>".format(int(conf_score * 1000) / 10), unsafe_allow_html=True)
+    predicted_probabilities = "\n".join([f"{key}: {value}" for key, value in predicted_probabilities.items()])
+
+# Display predicted probabilities in the sidebar
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
