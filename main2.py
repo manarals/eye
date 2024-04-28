@@ -4,34 +4,68 @@ import streamlit as st
 st.set_page_config(
     page_title="DR classification",
     page_icon=":eye:",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded"
 )
 
-# Define CSS styles for the theme
-def set_custom_css():
+def my_theme():
+    primaryColor = "#24475B"
+    backgroundColor = "#3A3A3A"
+    secondaryBackgroundColor = "#F3F3F3"
+    textColor = "#FFFFFF"
+    font = "sans-serif"
+
+    # Apply the theme
     st.markdown(
         f"""
         <style>
+            /* Streamlit App Main Style */
             body {{
-                color: #FFFFFF !important;
-                background-color: #3A3A3A !important;
+                color: {textColor};
+                background-color: {backgroundColor};
+                font-family: {font};
             }}
-            .st-cv {{
-                background-color: #F3F3F3 !important;
+            .stApp {{
+                background-color: {backgroundColor};
             }}
-            .st-bb {{
-                font-family: sans-serif !important;
+
+            /* Streamlit Widgets Style */
+            .stTextInput > div > div > input {{
+                color: {textColor};
+                background-color: {secondaryBackgroundColor};
+                border-color: {primaryColor};
             }}
-            .st-cp, .st-cc, .st-eq, .st-ct, .st-es, .st-hc, .st-fq, .st-jo, .st-jq, .st-jr, .st-dn {{
-                border-radius: 10px;
+            .stTextInput > div > label {{
+                color: {textColor};
             }}
+
+            .stButton > button {{
+                color: {textColor};
+                background-color: {primaryColor};
+            }}
+            .stButton > button:hover {{
+                background-color: {secondaryBackgroundColor};
+            }}
+            .stButton > button:active {{
+                background-color: {secondaryBackgroundColor};
+                color: {primaryColor};
+            }}
+
+            /* Streamlit Markdown Style */
+            .stMarkdown {{
+                color: {textColor};
+            }}
+            .stMarkdown a {{
+                color: {primaryColor};
+            }}
+
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
 
-set_custom_css()
+# Apply the theme
+my_theme()
 
 # Now you can continue with the rest of your code
 from keras.models import load_model
@@ -41,7 +75,7 @@ import base64
 
 from util import set_background, classify
 
-set_background('./bgs/bg5.png')
+#set_background('./bgs/bg5.png')
 
 # set title
 st.title('DR classification')
