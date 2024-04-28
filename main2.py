@@ -2,8 +2,8 @@ import streamlit as st
 st.set_page_config(
     page_title="DR classification",
     page_icon=":eye:",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="auto"
 )
 
 
@@ -51,14 +51,15 @@ if file is not None:
     class_name, conf_score = classify(image, model, class_names)
 
         # write classification
-    st.markdown("<h2 style='color: #24475B;'>{}</h2>".format(class_name), unsafe_allow_html=True)
-    st.markdown("<h3 style='color: #24475B;'>score: {}%</h3>".format(int(conf_score * 1000) / 10), unsafe_allow_html=True)
+    #st.markdown("<h2 style='color: #24475B;'>{}</h2>".format(class_name), unsafe_allow_html=True)
+    #st.markdown("<h3 style='color: #24475B;'>score: {}%</h3>".format(int(conf_score * 1000) / 10), unsafe_allow_html=True)
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
-        st.sidebar.warning("Detected class : " + class_name)
+        st.sidebar.image("./DR.jpg", use_column_width=True)
+        st.sidebar.success("Detected class : " + class_name)
+        st.sidebar.warning("Accuracy: {}%".format(int(conf_score * 1000) / 10))
         st.sidebar.info(class_meanings[class_name])
-        st.sidebar.warning("Accuracy: {}%</h3>".format(int(conf_score * 1000) / 10))
 
     else:
         st.sidebar.warning("Unknown Disease Detected")
