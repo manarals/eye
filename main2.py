@@ -5,32 +5,53 @@ def my_theme():
     primaryColor = "#24475B"
     backgroundColor = "#3A3A3A"
     secondaryBackgroundColor = "#F3F3F3"
-    textColor = "#FFFFFF"  # White color for text
+    textColor = "#FFFFFF"
     font = "sans-serif"
 
     # Apply the theme
     st.markdown(
         f"""
         <style>
+            /* Streamlit App Main Style */
             body {{
+                color: {textColor} !important;
                 background-color: {backgroundColor};
-                color: {textColor};
-                font-family: {font};
+                font-family: {font} !important;
             }}
-            .primary {{
-                background-color: {primaryColor};
-                color: {textColor};
+            .stApp {{
+                background-color: {backgroundColor};
             }}
-            .secondary-bg {{
-                background-color: {secondaryBackgroundColor};
-                color: {textColor};  /* White color for header and title */
-            }}
-            .sidebar-content {{
-                color: {textColor};  /* White color for sidebar content */
-            }}
+
+            /* Streamlit Widgets Style */
             .stTextInput > div > div > input {{
-                color: {textColor};  /* White color for text input */
+                color: {textColor} !important;
+                background-color: {secondaryBackgroundColor};
+                border-color: {primaryColor};
             }}
+            .stTextInput > div > label {{
+                color: {textColor} !important;
+            }}
+
+            .stButton > button {{
+                color: {textColor} !important;
+                background-color: {primaryColor};
+            }}
+            .stButton > button:hover {{
+                background-color: {secondaryBackgroundColor};
+            }}
+            .stButton > button:active {{
+                background-color: {secondaryBackgroundColor};
+                color: {primaryColor};
+            }}
+
+            /* Streamlit Markdown Style */
+            .stMarkdown {{
+                color: {textColor} !important;
+            }}
+            .stMarkdown a {{
+                color: {primaryColor} !important;
+            }}
+
         </style>
         """,
         unsafe_allow_html=True
@@ -38,6 +59,9 @@ def my_theme():
 
 # Apply the theme
 my_theme()
+
+# Your Streamlit app code goes here...
+
 
 # Your Streamlit app code goes here...
 
