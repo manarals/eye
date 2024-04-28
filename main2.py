@@ -9,19 +9,63 @@ def my_theme():
     font = "sans-serif"
 
     # Apply the theme
-    custom_theme = f"""
-    [theme]
-    primaryColor = "{primaryColor}"
-    backgroundColor = "{backgroundColor}"
-    secondaryBackgroundColor = "{secondaryBackgroundColor}"
-    textColor = "{textColor}"
-    font = "{font}"
-    """
+    st.markdown(
+        f"""
+        <style>
+            /* Streamlit App Main Style */
+            body {{
+                color: {textColor} !important;
+                background-color: {backgroundColor};
+                font-family: {font} !important;
+            }}
+            .stApp {{
+                background-color: {backgroundColor};
+            }}
 
-    st.write(custom_theme, unsafe_allow_html=True)
+            /* Streamlit Widgets Style */
+            .stTextInput > div > div > input {{
+                color: {textColor} !important;
+                background-color: {secondaryBackgroundColor};
+                border-color: {primaryColor};
+            }}
+            .stTextInput > div > label {{
+                color: {textColor} !important;
+            }}
+
+            .stButton > button {{
+                color: {textColor} !important;
+                background-color: {primaryColor};
+            }}
+            .stButton > button:hover {{
+                background-color: {secondaryBackgroundColor};
+            }}
+            .stButton > button:active {{
+                background-color: {secondaryBackgroundColor};
+                color: {primaryColor};
+            }}
+
+            /* Streamlit Markdown Style */
+            .stMarkdown {{
+                color: {textColor} !important;
+            }}
+            .stMarkdown a {{
+                color: {primaryColor} !important;
+            }}
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Apply the theme
 my_theme()
+import streamlit as st
+
+# Set font color to red
+st.markdown('<p style="color: white;">This is red text</p>', unsafe_allow_html=True)
+
+# Your Streamlit app code goes here...
+
 
 # Your Streamlit app code goes here...
 
