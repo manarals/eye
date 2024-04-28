@@ -56,7 +56,9 @@ if file is not None:
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
-        st.sidebar.warning("Detected Disease : " + class_name)
+        st.sidebar.warning("Detected class : " + class_name)
         st.sidebar.info(class_meanings[class_name])
+        st.sidebar.warning("Accuracy: {}%</h3>".format(int(conf_score * 1000) / 10))
+
     else:
         st.sidebar.warning("Unknown Disease Detected")
