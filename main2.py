@@ -41,7 +41,12 @@ if file is not None:
 
     # write classification
     st.write("## {}".format(class_name))
-    st.write("### score: {}%".format(int(conf_scores[class_name] * 1000) / 10))
+    
+    # Check if the class_name exists in the conf_scores dictionary
+    if class_name in conf_scores:
+        st.write("### score: {}%".format(int(conf_scores[class_name] * 1000) / 10))
+    else:
+        st.write("### score: Not Available")
 
     # Additional logic for displaying specific information based on predicted class
     if class_name in class_meanings:
