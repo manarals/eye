@@ -9,7 +9,7 @@ def my_theme():
     font = "sans-serif"
 
     # Apply the theme
-    st.markdown(
+    st.write(
         f"""
         <style>
             /* Streamlit App Main Style */
@@ -17,9 +17,6 @@ def my_theme():
                 color: {textColor} !important;
                 background-color: {backgroundColor};
                 font-family: {font} !important;
-            }}
-            .stApp {{
-                background-color: {backgroundColor};
             }}
 
             /* Streamlit Widgets Style */
@@ -59,6 +56,8 @@ def my_theme():
 
 # Apply the theme
 my_theme()
+
+# Your Streamlit app code goes here...
 
 # Your Streamlit app code goes here...
 
