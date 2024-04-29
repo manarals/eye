@@ -1,6 +1,6 @@
 import streamlit as st
 st.set_page_config(
-    page_title="DR classification",
+    page_title="MoqlatAI DR classification",
     page_icon=":eye:",
     layout="centered",
     initial_sidebar_state="auto"
