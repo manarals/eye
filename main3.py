@@ -104,7 +104,7 @@ def handle_user_input(user_input):
         st.write("Stay safe!")
 
         
-st.title("Simple chat")
+st.subheader("Chat Assistant  :speech_balloon:  :robot_face:")
 
 # Initialize chat history
 if "messages" not in st.session_state:
