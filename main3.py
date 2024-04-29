@@ -104,8 +104,10 @@ def handle_user_input(user_input):
         st.write("Stay safe!")
 
         
-st.title("")  # Adds a horizontal rule for separation
-st.subheader("Chat Assistant  :speech_balloon:  :robot_face:")
+st.title("") 
+st.title("")
+st.title("")# Adds a horizontal rule for separation
+st.subheader(":gray[Chat Assistant]  :speech_balloon:  :robot_face:")
 
 # Initialize chat history
 if "messages" not in st.session_state:
