@@ -104,7 +104,8 @@ def handle_user_input(user_input):
         st.write("Stay safe!")
 
         
-st.subheader("\n\n\n\n\n\n\n\n\n Chat Assistant  :speech_balloon:  :robot_face:")
+st.title("")  # Adds a horizontal rule for separation
+st.subheader("Chat Assistant  :speech_balloon:  :robot_face:")
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -116,7 +117,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Accept user input
-if prompt := st.chat_input("Chat Assistant  :speech_balloon:  :robot_face:"):
+if prompt := st.chat_input("Hi, human! Is there anything I can help you with?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
     # Display user message in chat message container
